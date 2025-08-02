@@ -23,3 +23,5 @@ Copiez `.env.example` vers `.env` et renseignez votre `VITE_NEOLIANE_TOKEN`. Vou
 Le fichier `proxy-neoliane.php` fournit un point d'entrée côté serveur pour
 relayer toutes les requêtes vers l'API Néoliane. Déposez-le à la racine du site
 ou adaptez son URL via `VITE_PROXY_URL`.
+
+Copiez `.env.example` vers `.env` et renseignez votre `VITE_NEOLIANE_TOKEN`.

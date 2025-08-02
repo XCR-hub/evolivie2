@@ -7,6 +7,11 @@ export interface Member {
 export interface Profile {
   zipcode: string;
   members: Member[];
+
+export interface Profile {
+  birthyear: string;
+  zipcode: string;
+  regime: string;
 }
 
 export interface Product {

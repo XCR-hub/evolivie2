@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 import type { Profile, Member } from '../types';
+import type { Profile } from '../types';
 
 export default function ProfileForm() {
   const { setProfile } = useAppContext();
@@ -13,7 +14,6 @@ export default function ProfileForm() {
   const [spouseBirthyear, setSpouseBirthyear] = useState('');
   const [spouseRegime, setSpouseRegime] = useState('1');
   const [children, setChildren] = useState<{ birthyear: string; regime: string }[]>([]);
-
   const addChild = () => setChildren([...children, { birthyear: '', regime: '1' }]);
   const updateChild = (i: number, field: 'birthyear' | 'regime', value: string) => {
     const next = [...children];
@@ -34,12 +34,23 @@ export default function ProfileForm() {
       members.push({ concern: `e${idx + 1}`, birthyear: c.birthyear, regime: c.regime })
     );
     const profile: Profile = { zipcode, members };
+  const [birthyear, setBirthyear] = useState('');
+  const [zipcode, setZipcode] = useState('');
+  const [regime, setRegime] = useState('1');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const profile: Profile = { birthyear, zipcode, regime };
     setProfile(profile);
     navigate('/offres');
   };
 
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 space-y-4 bg-white rounded shadow">
+      <div>
+        <label className="block mb-1">Année de naissance</label>
+        <input value={birthyear} onChange={(e) => setBirthyear(e.target.value)} required className="w-full border p-2" />
+      </div>
       <div>
         <label className="block mb-1">Code postal</label>
         <input value={zipcode} onChange={(e) => setZipcode(e.target.value)} required className="w-full border p-2" />
@@ -49,6 +60,7 @@ export default function ProfileForm() {
         <label className="block mb-1">Année de naissance</label>
         <input value={birthyear} onChange={(e) => setBirthyear(e.target.value)} required className="w-full border p-2" />
         <label className="block mt-2 mb-1">Régime</label>
+        <label className="block mb-1">Régime</label>
         <select value={regime} onChange={(e) => setRegime(e.target.value)} className="w-full border p-2">
           <option value="1">Salarié</option>
           <option value="2">TNS indépendant</option>
